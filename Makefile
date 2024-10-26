@@ -122,7 +122,6 @@ endef
 
 $(foreach D,$(FFLIBS),$(eval $(call DOSUBDIR,lib$(D))))
 
-include $(SRC_PATH)/fftools/Makefile
 include $(SRC_PATH)/doc/Makefile
 include $(SRC_PATH)/doc/examples/Makefile
 

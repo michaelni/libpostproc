@@ -1,18 +1,3 @@
-LIBRARIES-$(CONFIG_AVUTIL)     += libavutil
-LIBRARIES-$(CONFIG_SWSCALE)    += libswscale
-LIBRARIES-$(CONFIG_SWRESAMPLE) += libswresample
-LIBRARIES-$(CONFIG_AVCODEC)    += libavcodec
-LIBRARIES-$(CONFIG_AVFORMAT)   += libavformat
-LIBRARIES-$(CONFIG_AVDEVICE)   += libavdevice
-LIBRARIES-$(CONFIG_AVFILTER)   += libavfilter
-
-COMPONENTS-$(CONFIG_AVUTIL)     += ffmpeg-utils
-COMPONENTS-$(CONFIG_SWSCALE)    += ffmpeg-scaler
-COMPONENTS-$(CONFIG_SWRESAMPLE) += ffmpeg-resampler
-COMPONENTS-$(CONFIG_AVCODEC)    += ffmpeg-codecs ffmpeg-bitstream-filters
-COMPONENTS-$(CONFIG_AVFORMAT)   += ffmpeg-formats ffmpeg-protocols
-COMPONENTS-$(CONFIG_AVDEVICE)   += ffmpeg-devices
-COMPONENTS-$(CONFIG_AVFILTER)   += ffmpeg-filters
 
 MANPAGES1   = $(AVPROGS-yes:%=doc/%.1)    $(AVPROGS-yes:%=doc/%-all.1)    $(COMPONENTS-yes:%=doc/%.1)
 MANPAGES3   = $(LIBRARIES-yes:%=doc/%.3)
@@ -26,7 +11,6 @@ HTMLPAGES   = $(AVPROGS-yes:%=doc/%.html) $(AVPROGS-yes:%=doc/%-all.html) $(COMP
               doc/general.html                                          \
               doc/git-howto.html                                        \
               doc/mailing-list-faq.html                                 \
-              doc/nut.html                                              \
               doc/platform.html                                         \
               $(SRC_PATH)/doc/bootstrap.min.css                         \
               $(SRC_PATH)/doc/style.min.css                             \
@@ -55,8 +39,7 @@ doc/%.txt: doc/%.texi
 	$(Q)$(TEXIDEP)
 	$(M)makeinfo --force --no-headers -o $@ $< 2>/dev/null
 
-GENTEXI  = format codec
-GENTEXI := $(GENTEXI:%=doc/avoptions_%.texi)
+GENTEXI  =
 
 $(GENTEXI): TAG = GENTEXI
 $(GENTEXI): doc/avoptions_%.texi: doc/print_options$(HOSTEXESUF)

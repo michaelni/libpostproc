@@ -139,7 +139,6 @@ OBJS = adler32.o                                                        \
        fixed_dsp.o                                                      \
        frame.o                                                          \
        hash.o                                                           \
-       hdr_dynamic_metadata.o                                           \
        hdr_dynamic_vivid_metadata.o                                     \
        hmac.o                                                           \
        hwcontext.o                                                      \
