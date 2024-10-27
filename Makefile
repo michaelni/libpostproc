@@ -30,7 +30,7 @@ FFLIBS-$(CONFIG_POSTPROC)   += postproc
 FFLIBS-$(CONFIG_SWRESAMPLE) += swresample
 FFLIBS-$(CONFIG_SWSCALE)    += swscale
 
-FFLIBS := avutil
+FFLIBS :=
 
 DATA_FILES := $(wildcard $(SRC_PATH)/presets/*.ffpreset) $(SRC_PATH)/doc/ffprobe.xsd
 
