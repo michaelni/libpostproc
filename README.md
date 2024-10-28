@@ -1,27 +1,28 @@
-FFmpeg README
-=============
+libpostproc README
+==================
 
-FFmpeg is a collection of libraries and tools to process multimedia content
-such as audio, video, subtitles and related metadata.
+libpostproc is a library for filtering images and videos.
+It currently supports the MPEG4 deblocking and deringing filters and
+some old basic deinterlacing methods and old basic denoise.
+These deblocking methods are effective on a wide range of old
+formats, including jpeg, mpeg1, mpeg2, mpeg4, h261, h262, h263,
+msmpeg4v1, msmpeg4v2, msmpeg4v3 and many other similar formats.
 
-## Libraries
+libpostproc is supported by ffmpeg, mplayer and likely many other
+media players.
 
-* `libavcodec` provides implementation of a wider range of codecs.
-* `libavformat` implements streaming protocols, container formats and basic I/O access.
-* `libavutil` includes hashers, decompressors and miscellaneous utility functions.
-* `libavfilter` provides means to alter decoded audio and video through a directed graph of connected filters.
-* `libavdevice` provides an abstraction to access capture and playback devices.
-* `libswresample` implements audio mixing and resampling routines.
-* `libswscale` implements color conversion and scaling routines.
+That said, the Author is open minded and would certainly welcome
+contributions which extend the scope of libpostproc beyond this.
+For example an API supporting a wider range of pixel formats and
+more complex filters. And also any general filterm, not just
+postprocessing would be welcome.
+Or in other words, if you want to turn libpostproc in a replacement
+for gstreamer, your pull request could be accepted!
+Also LGPL filters with a way to choose the license runtime would be
+welcome.
+Bascially, if you have a cool idea, AI, GPU accel, anything, it likely
+is welcome!
 
-## Tools
-
-* [ffmpeg](https://ffmpeg.org/ffmpeg.html) is a command line toolbox to
-  manipulate, convert and stream multimedia content.
-* [ffplay](https://ffmpeg.org/ffplay.html) is a minimalistic multimedia player.
-* [ffprobe](https://ffmpeg.org/ffprobe.html) is a simple analysis tool to inspect
-  multimedia content.
-* Additional small tools such as `aviocat`, `ismindex` and `qt-faststart`.
 
 ## Documentation
 
@@ -36,11 +37,12 @@ Coding examples are available in the **doc/examples** directory.
 
 ## License
 
-FFmpeg codebase is mainly LGPL-licensed with optional components licensed under
-GPL. Please refer to the LICENSE file for detailed information.
+libpostproc codebase is GPL-licensed currently. If there is demand
+relicensing to LGPL can be discussed but requires all authors to agree.
+
+Please refer to the LICENSE file for detailed information.
 
 ## Contributing
 
-Patches should be submitted to the ffmpeg-devel mailing list using
-`git format-patch` or `git send-email`. Github pull requests should be
-avoided because they are not part of our review process and will be ignored.
+Probably a pull request on github is easiest, but you can send the author
+a mail with patch.
