@@ -10,6 +10,11 @@ msmpeg4v1, msmpeg4v2, msmpeg4v3 and many other similar formats.
 
 libpostproc is supported by ffmpeg, mplayer and likely many other
 media players.
+This code was split out from FFmpeg and many bits and pieces from
+FFmpeg remain.
+In code that is shared with FFmpeg (like the build system)
+the goal is to keep differences to a minimum, to allow easy future
+updates.
 
 That said, the Author is open minded and would certainly welcome
 contributions which extend the scope of libpostproc beyond this.
