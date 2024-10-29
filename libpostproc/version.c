@@ -25,7 +25,7 @@
 #include "version.h"
 
 #include "libavutil/ffversion.h"
-const char postproc_ffversion[] = "FFmpeg version " FFMPEG_VERSION;
+const char postproc_ffversion[] = "libpostproc version " FFMPEG_VERSION;
 
 unsigned postproc_version(void)
 {
