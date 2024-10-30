@@ -1,4 +1,6 @@
-# Note to Github users
-Patches should be submitted to the [ffmpeg-devel mailing list](https://ffmpeg.org/mailman/listinfo/ffmpeg-devel) using `git format-patch` or `git send-email`. Github pull requests should be avoided because they are not part of our review process and **will be ignored**.
+Pull requests are welcome, so are patches made with `git format-patch` or `git send-email`
 
-See [https://ffmpeg.org/developer.html#Contributing](https://ffmpeg.org/developer.html#Contributing) for more information.
+Please read through and test your code before submitting.
+Also consider adding a fate test, if your code can be tested!
+You can also look at the FFmpeg developer doc for some general suggestions [https://ffmpeg.org/developer.html#Contributing](https://ffmpeg.org/developer.html#Contributing)
+
