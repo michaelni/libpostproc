@@ -1,6 +1,5 @@
-See the Git history of the project (https://git.ffmpeg.org/ffmpeg) to
-get the names of people who have contributed to FFmpeg.
+See the Git history of the project to get the names of people who
+have contributed to libpostroc.
 
-To check the log, you can type the command "git log" in the FFmpeg
-source directory, or browse the online repository at
-https://git.ffmpeg.org/ffmpeg
+To check the log, you can type the command "git log" in the
+source directory, or browse it online on https://github.com/michaelni/libpostproc
