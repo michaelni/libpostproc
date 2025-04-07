@@ -132,6 +132,7 @@ include $(SRC_PATH)/tests/fate/api.mak
 include $(SRC_PATH)/tests/fate/build.mak
 include $(SRC_PATH)/tests/fate/checkasm.mak
 include $(SRC_PATH)/tests/fate/libavutil.mak
+include $(SRC_PATH)/tests/fate/libpostproc.mak
 
 FATE_FFMPEG += $(FATE_FFMPEG-yes) $(FATE_AVCONV) $(FATE_AVCONV-yes)
 FATE-$(CONFIG_FFMPEG) += $(FATE_FFMPEG)
