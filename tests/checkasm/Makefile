@@ -29,6 +29,7 @@ AVCODECOBJS-$(CONFIG_AAC_DECODER)       += aacpsdsp.o \
 AVCODECOBJS-$(CONFIG_AAC_ENCODER)       += aacencdsp.o
 AVCODECOBJS-$(CONFIG_ALAC_DECODER)      += alacdsp.o
 AVCODECOBJS-$(CONFIG_DCA_DECODER)       += synth_filter.o
+AVCODECOBJS-$(CONFIG_DIRAC_DECODER)     += diracdsp.o
 AVCODECOBJS-$(CONFIG_EXR_DECODER)       += exrdsp.o
 AVCODECOBJS-$(CONFIG_FLAC_DECODER)      += flacdsp.o
 AVCODECOBJS-$(CONFIG_HUFFYUV_DECODER)   += huffyuvdsp.o
@@ -69,6 +70,7 @@ SWSCALEOBJS                             += sw_gbrp.o sw_range_convert.o sw_rgb.o
 CHECKASMOBJS-$(CONFIG_SWSCALE)  += $(SWSCALEOBJS)
 
 # libavutil tests
+AVUTILOBJS                              += aes.o
 AVUTILOBJS                              += av_tx.o
 AVUTILOBJS                              += fixed_dsp.o
 AVUTILOBJS                              += float_dsp.o

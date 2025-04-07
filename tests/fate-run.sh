@@ -203,7 +203,8 @@ enc_dec_pcm(){
     ffmpeg -auto_conversion_filters -bitexact -i ${encfile} -c:a pcm_${pcm_fmt} -fflags +bitexact -f ${dec_fmt} -
 }
 
-FLAGS="-flags +bitexact -sws_flags +accurate_rnd+bitexact -fflags +bitexact"
+SCALE_FLAGS="+accurate_rnd+bitexact"
+FLAGS="-flags +bitexact -sws_flags $SCALE_FLAGS -fflags +bitexact"
 DEC_OPTS="-threads $threads -thread_type $thread_type -idct simple $FLAGS"
 ENC_OPTS="-threads 1        -idct simple -dct fastint"
 
@@ -335,7 +336,7 @@ echov(){
 }
 
 AVCONV_OPTS="-nostdin -nostats -noauto_conversion_filters -y -cpuflags $cpuflags -filter_threads $threads"
-COMMON_OPTS="-flags +bitexact -idct simple -sws_flags +accurate_rnd+bitexact -fflags +bitexact"
+COMMON_OPTS="-flags +bitexact -idct simple -sws_flags $SCALE_FLAGS -fflags +bitexact"
 DEC_OPTS="$COMMON_OPTS -threads $threads"
 ENC_OPTS="$COMMON_OPTS -threads 1 -dct fastint"
 
@@ -401,8 +402,8 @@ lavf_container_fate()
     cleanfiles="$cleanfiles $file"
     input="${target_samples}/$1"
     do_avconv $file -auto_conversion_filters $DEC_OPTS $2 -i "$input" \
-              "$ENC_OPTS -metadata title=lavftest" -vcodec copy -acodec copy || return
-    do_avconv_crc $file -auto_conversion_filters $DEC_OPTS -i $target_path/$file $3
+              "$ENC_OPTS -metadata title=lavftest" $3 -vcodec copy -acodec copy || return
+    do_avconv_crc $file -auto_conversion_filters $DEC_OPTS -i $target_path/$file $4
 }
 
 lavf_image(){
@@ -503,6 +504,19 @@ pixfmt_conversion(){
               $ENC_OPTS -f rawvideo -s 352x288 -pix_fmt yuv444p -color_range mpeg
 }
 
+pixfmt_conversion_ext(){
+    prefix=$1
+    suffix=$2
+    color_range="${test#pixfmt-}"
+    color_range=${color_range%-*}
+    conversion="${test#pixfmt-$color_range-}"
+    outdir="tests/data/pixfmt"
+    file=${outdir}/${color_range}-${conversion}.yuv
+    cleanfiles="$cleanfiles $file"
+    do_avconv $file $DEC_OPTS -lavfi ${prefix}testsrc=s=352x288,format=${color_range},scale=flags=$SCALE_FLAGS:sws_dither=none,format=$conversion \
+              $ENC_OPTS -t 1 -f rawvideo -s 352x288 -pix_fmt ${color_range}${suffix} -color_range mpeg
+}
+
 pixdesc(){
     pix_fmt=${test#filter-pixdesc-}
     label=${test#filter-}
@@ -519,7 +533,7 @@ pixdesc(){
         $FLAGS $ENC_OPTS -vf "scale,format=$pix_fmt,pixdesctest" -vcodec rawvideo -frames:v 5 \
         "-pix_fmt $pix_fmt" -f nut md5:$md5file2
 
-    diff -u -q $md5file1 $md5file2 || return
+    diff -q $md5file1 $md5file2 || return
     printf '%-20s' $label
     cat $md5file1
 }
