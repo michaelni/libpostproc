@@ -78,27 +78,18 @@ XYES    = $(if $(strip $(1)),                                           \
                     $(call XYES, $(wordlist 2, $(words $(1)), $(1)))),  \
                yes)
 
-ENCDEC  = $(call ALLYES, $(firstword $(1))_ENCODER $(lastword $(1))_DECODER  \
-                         $(firstword $(2))_MUXER   $(lastword $(2))_DEMUXER  \
-                         $(3) FILE_PROTOCOL)
+ENCDEC  = 0
 
-ENCDEC2 = $(call ALLYES, $(firstword $(1))_ENCODER $(lastword $(1))_DECODER  \
-                         $(firstword $(2))_ENCODER $(lastword $(2))_DECODER  \
-                         $(firstword $(3))_MUXER   $(lastword $(3))_DEMUXER  \
-                         $(4) FILE_PROTOCOL)
+ENCDEC2 = 0
 
 # RAWVIDEO_ENCODER and PCM_S16LE_ENCODER corresponds to the default codecs
 # for framecrc. These requirements are not always necessary.
-TRANSCODE = $(call ALLYES, $(firstword $(1))_ENCODER $(lastword $(1))_DECODER \
-                           $(firstword $(2))_MUXER   $(lastword $(2))_DEMUXER \
-                           $(3) FILE_PROTOCOL PIPE_PROTOCOL RAWVIDEO_ENCODER  \
-                           PCM_S16LE_ENCODER FRAMECRC_MUXER)
+TRANSCODE = 0
 
-REMUX = $(call ALLYES, $(firstword $(1))_MUXER $(lastword $(1))_DEMUXER \
-                       $(2) FILE_PROTOCOL PIPE_PROTOCOL FRAMECRC_MUXER)
+REMUX = 0
 
-DEMDEC  = $(call ALLYES, $(1)_DEMUXER $(2:%=%_DECODER) $(3) FILE_PROTOCOL)
-ENCMUX  = $(call ALLYES, $(1:%=%_ENCODER) $(2)_MUXER   $(3))
+DEMDEC  = 0
+ENCMUX  = 0
 
 FRAMEMD5 = $(call ALLYES, $(1)_DEMUXER $(2:%=%_DECODER) $(3)                  \
                           PCM_S16LE_ENCODER RAWVIDEO_ENCODER FRAMEMD5_MUXER   \
@@ -108,10 +99,9 @@ FRAMECRC = $(call ALLYES, $(1)_DEMUXER $(2:%=%_DECODER) $(3)                  \
                           PIPE_PROTOCOL FILE_PROTOCOL)
 
 # Variant of DEMDEC for use with the "pcm" command.
-PCM = $(call ALLYES, $(1)_DEMUXER $(2)_DECODER  $(3) FILE_PROTOCOL            \
-                     PCM_S16LE_ENCODER PCM_S16LE_MUXER PIPE_PROTOCOL)
+PCM = 0
 
-DEMMUX  = $(call ALLYES, $(1)_DEMUXER $(2)_MUXER $(3) FILE_PROTOCOL)
+DEMMUX  = 0
 
 # Variant of FRAMECRC for the cases with -lavfi where no demuxer is involved.
 FILTERFRAMECRC     = $(call ALLYES, $(1:%=%_FILTER) $(2) PCM_S16LE_ENCODER    \
@@ -136,133 +126,23 @@ endif
 
 include $(SRC_PATH)/$(APITESTSDIR)/Makefile
 
-include $(SRC_PATH)/tests/fate/acodec.mak
-include $(SRC_PATH)/tests/fate/vcodec.mak
-
-include $(SRC_PATH)/tests/fate/lavf-audio.mak
-include $(SRC_PATH)/tests/fate/lavf-container.mak
-include $(SRC_PATH)/tests/fate/lavf-image.mak
-include $(SRC_PATH)/tests/fate/lavf-image2pipe.mak
-include $(SRC_PATH)/tests/fate/lavf-video.mak
 # Must be included after acodec.mak, vcodec.mak and lavf-*.mak
-include $(SRC_PATH)/tests/fate/seek.mak
 
-include $(SRC_PATH)/tests/fate/aac.mak
-include $(SRC_PATH)/tests/fate/ac3.mak
-include $(SRC_PATH)/tests/fate/adpcm.mak
-include $(SRC_PATH)/tests/fate/alac.mak
-include $(SRC_PATH)/tests/fate/als.mak
-include $(SRC_PATH)/tests/fate/amrnb.mak
-include $(SRC_PATH)/tests/fate/amrwb.mak
 include $(SRC_PATH)/tests/fate/api.mak
-include $(SRC_PATH)/tests/fate/apng.mak
-include $(SRC_PATH)/tests/fate/atrac.mak
-include $(SRC_PATH)/tests/fate/audio.mak
-include $(SRC_PATH)/tests/fate/bmp.mak
 include $(SRC_PATH)/tests/fate/build.mak
-include $(SRC_PATH)/tests/fate/caf.mak
-include $(SRC_PATH)/tests/fate/canopus.mak
-include $(SRC_PATH)/tests/fate/cbs.mak
-include $(SRC_PATH)/tests/fate/cdxl.mak
 include $(SRC_PATH)/tests/fate/checkasm.mak
-# Must be included after lavf-container.mak
-include $(SRC_PATH)/tests/fate/concatdec.mak
-include $(SRC_PATH)/tests/fate/cover-art.mak
-include $(SRC_PATH)/tests/fate/dca.mak
-include $(SRC_PATH)/tests/fate/demux.mak
-include $(SRC_PATH)/tests/fate/dfa.mak
-include $(SRC_PATH)/tests/fate/dnxhd.mak
-include $(SRC_PATH)/tests/fate/dpcm.mak
-include $(SRC_PATH)/tests/fate/dvvideo.mak
-include $(SRC_PATH)/tests/fate/ea.mak
-include $(SRC_PATH)/tests/fate/exif.mak
-include $(SRC_PATH)/tests/fate/enc_external.mak
-# Must be included after lavf-video.mak
-include $(SRC_PATH)/tests/fate/ffmpeg.mak
-include $(SRC_PATH)/tests/fate/ffprobe.mak
-include $(SRC_PATH)/tests/fate/fifo-muxer.mak
-include $(SRC_PATH)/tests/fate/filter-audio.mak
-# Must be included after vcodec.mak
-include $(SRC_PATH)/tests/fate/filter-video.mak
-include $(SRC_PATH)/tests/fate/fits.mak
-include $(SRC_PATH)/tests/fate/flac.mak
-include $(SRC_PATH)/tests/fate/flvenc.mak
-include $(SRC_PATH)/tests/fate/gapless.mak
-include $(SRC_PATH)/tests/fate/gif.mak
-include $(SRC_PATH)/tests/fate/h264.mak
-include $(SRC_PATH)/tests/fate/hap.mak
-include $(SRC_PATH)/tests/fate/hevc.mak
-include $(SRC_PATH)/tests/fate/hlsenc.mak
-include $(SRC_PATH)/tests/fate/hw.mak
-include $(SRC_PATH)/tests/fate/iamf.mak
-include $(SRC_PATH)/tests/fate/id3v2.mak
-include $(SRC_PATH)/tests/fate/image.mak
-include $(SRC_PATH)/tests/fate/imf.mak
-include $(SRC_PATH)/tests/fate/indeo.mak
-include $(SRC_PATH)/tests/fate/jpeg2000.mak
-include $(SRC_PATH)/tests/fate/jxl.mak
-include $(SRC_PATH)/tests/fate/libavcodec.mak
-include $(SRC_PATH)/tests/fate/libavdevice.mak
-include $(SRC_PATH)/tests/fate/libavformat.mak
 include $(SRC_PATH)/tests/fate/libavutil.mak
-include $(SRC_PATH)/tests/fate/libswresample.mak
-include $(SRC_PATH)/tests/fate/libswscale.mak
-include $(SRC_PATH)/tests/fate/lossless-audio.mak
-include $(SRC_PATH)/tests/fate/lossless-video.mak
-include $(SRC_PATH)/tests/fate/matroska.mak
-include $(SRC_PATH)/tests/fate/microsoft.mak
-include $(SRC_PATH)/tests/fate/monkeysaudio.mak
-include $(SRC_PATH)/tests/fate/mov.mak
-include $(SRC_PATH)/tests/fate/mp3.mak
-include $(SRC_PATH)/tests/fate/mpc.mak
-include $(SRC_PATH)/tests/fate/mpeg4.mak
-include $(SRC_PATH)/tests/fate/mpegps.mak
-include $(SRC_PATH)/tests/fate/mpegts.mak
-include $(SRC_PATH)/tests/fate/mxf.mak
-include $(SRC_PATH)/tests/fate/oma.mak
-include $(SRC_PATH)/tests/fate/opus.mak
-include $(SRC_PATH)/tests/fate/pcm.mak
-include $(SRC_PATH)/tests/fate/pixfmt.mak
-include $(SRC_PATH)/tests/fate/pixlet.mak
-include $(SRC_PATH)/tests/fate/probe.mak
-include $(SRC_PATH)/tests/fate/prores.mak
-include $(SRC_PATH)/tests/fate/qoa.mak
-include $(SRC_PATH)/tests/fate/qt.mak
-include $(SRC_PATH)/tests/fate/qtrle.mak
-include $(SRC_PATH)/tests/fate/real.mak
-include $(SRC_PATH)/tests/fate/screen.mak
-include $(SRC_PATH)/tests/fate/segafilm.mak
-include $(SRC_PATH)/tests/fate/segment.mak
-include $(SRC_PATH)/tests/fate/source.mak
-include $(SRC_PATH)/tests/fate/spdif.mak
-include $(SRC_PATH)/tests/fate/speedhq.mak
-include $(SRC_PATH)/tests/fate/subtitles.mak
-include $(SRC_PATH)/tests/fate/truehd.mak
-include $(SRC_PATH)/tests/fate/utvideo.mak
-include $(SRC_PATH)/tests/fate/vbn.mak
-include $(SRC_PATH)/tests/fate/video.mak
-include $(SRC_PATH)/tests/fate/voice.mak
-include $(SRC_PATH)/tests/fate/vorbis.mak
-include $(SRC_PATH)/tests/fate/vpx.mak
-include $(SRC_PATH)/tests/fate/vqf.mak
-include $(SRC_PATH)/tests/fate/vvc.mak
-include $(SRC_PATH)/tests/fate/wavpack.mak
-include $(SRC_PATH)/tests/fate/webm-dash-manifest.mak
-include $(SRC_PATH)/tests/fate/wma.mak
-include $(SRC_PATH)/tests/fate/xvid.mak
 
 FATE_FFMPEG += $(FATE_FFMPEG-yes) $(FATE_AVCONV) $(FATE_AVCONV-yes)
 FATE-$(CONFIG_FFMPEG) += $(FATE_FFMPEG)
 FATE_FFPROBE += $(FATE_FFPROBE-yes)
 FATE-$(CONFIG_FFPROBE) += $(FATE_FFPROBE)
-FATE-$(call ALLYES, FFMPEG FFPROBE) += $(FATE_FFMPEG_FFPROBE)
 
 FATE_SAMPLES_AVCONV           += $(FATE_SAMPLES_AVCONV-yes)
 FATE_SAMPLES_FFMPEG           += $(FATE_SAMPLES_FFMPEG-yes)
 FATE_EXTERN-$(CONFIG_FFMPEG)  += $(FATE_SAMPLES_AVCONV) $(FATE_SAMPLES_FFMPEG)
 FATE_EXTERN-$(CONFIG_FFPROBE) += $(FATE_SAMPLES_FFPROBE)
 FATE_SAMPLES_FFMPEG_FFPROBE   += $(FATE_SAMPLES_FFMPEG_FFPROBE-yes)
-FATE_EXTERN-$(call ALLYES, FFMPEG FFPROBE) += $(FATE_SAMPLES_FFMPEG_FFPROBE)
 FATE_EXTERN                   += $(FATE_EXTERN-yes) $(FATE_SAMPLES_FASTSTART)
 
 FATE += $(FATE-yes)

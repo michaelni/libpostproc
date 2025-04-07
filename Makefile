@@ -88,10 +88,6 @@ tools/target_dem_%_fuzzer$(EXESUF): $(FF_DEP_LIBS)
 
 CONFIGURABLE_COMPONENTS =                                           \
     $(wildcard $(FFLIBS:%=$(SRC_PATH)/lib%/all*.c))                 \
-    $(SRC_PATH)/libavcodec/bitstream_filters.c                      \
-    $(SRC_PATH)/libavcodec/hwaccels.h                               \
-    $(SRC_PATH)/libavcodec/parsers.c                                \
-    $(SRC_PATH)/libavformat/protocols.c                             \
 
 config_components.h: ffbuild/.config
 ffbuild/.config: $(CONFIGURABLE_COMPONENTS)
