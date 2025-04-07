@@ -22,6 +22,7 @@ HOSTPROGS  := $(TESTTOOLS:%=tests/%) doc/print_options
 ALLFFLIBS = avcodec avdevice avfilter avformat avutil postproc swscale swresample
 
 # $(FFLIBS-yes) needs to be in linking order
+FFLIBS-$(CONFIG_AVUTIL)     += avutil
 FFLIBS-$(CONFIG_AVDEVICE)   += avdevice
 FFLIBS-$(CONFIG_AVFILTER)   += avfilter
 FFLIBS-$(CONFIG_AVFORMAT)   += avformat
