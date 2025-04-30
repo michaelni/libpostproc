@@ -14,4 +14,6 @@ path when launching `configure`, e.g. `/postprocdir/postproc/configure`.
 NOTICE
 ------
 
+ - if you want to install libpostproc without libavutil use ./configure --disable-avutil
+
  - Non system dependencies (e.g. libx264, libvpx) are disabled by default.
