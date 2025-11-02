@@ -1,3 +1,18 @@
+libpostproc was changed into a source plugin of FFmpeg
+or rather thats what i intend to maintain going forward.
+
+From within a recent FFmpeg checkout you should be able to simply run
+
+tools/merge-all-source-plugins tools/source-plugins.txt
+
+and that should merge in libpostproc from:
+https://github.com/michaelni/FFmpeg/tree/sourceplugin-libpostproc
+
+after that, if you build that ffmpeg you also build libpostproc and a ffmpeg that can use that libpostproc automatically
+
+Below is the old readme, if you still want to use this unmaintained repository
+
+
 libpostproc README
 ==================
 
